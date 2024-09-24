@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
-import { errorHandler } from "../utils/error.js";
+//import { errorHandler } from "../utils/error.js";
 
 export const signup = async (req,res,next) => {
     const {username, email, password} = req.body;
@@ -17,8 +17,25 @@ export const signup = async (req,res,next) => {
         'User created successfully!'
     );
     } catch (error) {
-       // next(errorHandler(550, 'error form the function'));   custom handling errors using a function
-       next(error)
+    //    // next(errorHandler(550, 'error form the function'));   custom handling errors using a function
+    //    next(error)
+    if (error.code === 11000) {
+        // Determine if it's the email field causing the issue
+        if (error.keyPattern && error.keyPattern.email) {
+            return res.status(400).json({
+                message: 'Email already exists'
+            });
+        }
+        // Handle other duplicate key errors (if any)
+        return res.status(400).json({
+            message: 'Duplicate key error'
+        });
+    }
+
+    // Handle other errors
+    res.status(500).json({
+        message: error.message
+    });
     }
     
 };
