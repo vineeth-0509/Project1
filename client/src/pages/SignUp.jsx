@@ -26,7 +26,7 @@ export default function SignUp() {
       });
       const data = await res.json();
       console.log(data);
-      if (!data.success) {
+      if (data.success === false) {
         setLoading(false);
         setError(data.message);
         return;
@@ -71,7 +71,7 @@ export default function SignUp() {
         >
           {loading ? 'Loading...' : 'Sign Up'}
         </button>
-       
+      
       </form>
       <div className='flex gap-2 mt-5'>
         <p>Have an account?</p>
