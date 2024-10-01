@@ -5,6 +5,12 @@ import {useSelector} from 'react-redux';
 
 export default function Header() {
   const {currentUser} = useSelector((state) => state.user);
+  //firebase storage
+  /*allow read;
+      allow write: if
+      request.resource.size < 2* 1024*1024 &&
+      request.resource.contentType.matches('image/.*') */
+  
   return (
     <header className='bg-slate-200 shadow-md'>
         <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
