@@ -5,6 +5,7 @@ import cors from "cors";
 
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import cookieParser from 'cookie-parser';
 dotenv.config();
 
 const app = express();
@@ -20,6 +21,7 @@ mongoose
 });
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(cors({
     origin: 'http://localhost:3000',
